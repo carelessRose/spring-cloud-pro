@@ -1,0 +1,93 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 8765
+feign:
+  hystrix:
+    enabled: true
+
+#databse connection
+spring:
+  application:
+    name: service-feign
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/adp_dev?characterEncoding=utf8&useUnicode=true&useSSL=false
+    username: root
+    password: P@ssw0rd
+    driver-class-name: com.mysql.jdbc.Driver
+    #下面为连接池补充设置
+#    initialSize: 5
+#
+#    maxWait: 60000
+#    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+#    timeBetweenEvictionRunsMillis: 60000
+#    # 配置一个连接在池中最小生存的时间，单位是毫秒
+#    minEvictableIdleTimeMillis: 300000
+#    validationQuery: SELECT 1 FROM DUAL
+#    testWhileIdle: true
+#    testOnBorrow: false
+#    testOnReturn: false
+#    # 打开PSCache，并且指定每个连接上PSCache的大小
+#    poolPreparedStatements: true
+#    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+#    # 合并多个DruidDataSource的监控数据
+#    useGlobalDataSourceStat: true
+    tomcat:
+      initial-size: 5
+      # 配置获取连接等待超时的时间
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    dbcp2:
+      pool-prepared-statements: true
+  jpa:
+    generate-ddl: false
+    show-sql: true
+    hibernate: none
+  redis:
+    database: 0
+    host: localhost
+    password: P@ssw0rd
+    port: 6379
+    timeout: 3000ms
+    #线程池
+    jedis:
+      pool:
+        max-active: 8
+        max-idle: 500
+        min-idle: 50
+        max-wait: 10ms
+    #集群
+#    sentinel:
+#      master:
+#      nodes:
+
+#Mybatis
+mybatis:
+  mapper-locations: classpath*:/mapping/*Mapper.xml
+  check-config-location: true
+  type-aliases-package: com.arvato.sh.cloud.feign.entity
+
+logging:
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    com.arvato.sh.cloud.feign.mapper: debug
+
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countsql
+
