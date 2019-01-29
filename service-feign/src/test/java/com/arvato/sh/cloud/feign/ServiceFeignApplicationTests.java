@@ -11,6 +11,7 @@ public class ServiceFeignApplicationTests {
 
     @Test
     public void contextLoads() {
+
     }
 
 }
